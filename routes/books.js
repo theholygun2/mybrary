@@ -58,21 +58,25 @@ router.post('/', async (req,res) => {
 router.put('/:id', async (req,res) => {
   let book
   try {
-    book = await Book.findById(req,params.id)
+    book = await Book.findById(req.params.id)
     book.title = req.body.title
     book.author = req.body.author
     book.publishDate = new Date(req.body.publishDate)
     book.pageCount = req.body.pageCount
     book.description = req.body.description
     if (req.body.cover != null && req.body.cover !== ''){
-      saveCover(book,req.body.cover).exec()
+      saveCover(book,req.body.cover)
     }
-    res.redirect(`books/${book.id}`)
-  } catch {
+    await book.save()
+    res.redirect(`/books/${book.id}`)
+  } catch (err){
     if (book != null){
       renderEditPage(res, book, true)
     }
-    redirect('/')
+    else {
+      console.log(err)
+      res.redirect('/')
+    }
   }
 })
 
@@ -107,7 +111,7 @@ router.get('/:id', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
   try {
     const book = await Book.findById(req.params.id)
-    renderEditPage(res,book,)
+    renderEditPage(res,book)
   } catch {
     res.redirect('/')
   }
@@ -129,7 +133,7 @@ async function renderFormPage(res, book, form, hasError = false) {
       book: book
     }
     if (hasError) {
-      if (form == 'edit'){
+      if (form === 'edit'){
         params.errorMessage = 'Error Editing Book'
       } else {
         params.errorMessage = 'Error Creating Book'

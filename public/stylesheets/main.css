@@ -1,9 +1,13 @@
 @import 'shared/variables.css';
 @import 'shared/fonts.css';
 @import 'shared/header.css';
+@import 'shared/buttons.css';
+@import 'shared/form.css';
+
 :root {
     font-family: 'Gotham Rounded';
     font-size: 20px;
+    color: var(--color-text-light);
 }
 
 *, *::before, *::after {
@@ -11,8 +15,8 @@
 }
 
 body {
-    background: linear-gradient(to right, var(--color-background-dark), 
-    var(--color-background-light));
+    background: linear-gradient(to right, 
+    var(--color-background-dark), var(--color-background-light));
 }
 
 .container {

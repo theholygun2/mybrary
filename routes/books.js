@@ -25,7 +25,8 @@ router.get('/', async (req,res) => {
       books: books,
       searchOptions: req.query
     })
-  }catch{
+  }catch(err){
+    console.log(err)
     res.redirect('/')
   }
 })
@@ -50,7 +51,8 @@ router.post('/', async (req,res) => {
   try {
     const newBook = await book.save()
     res.redirect(`books/${newBook.id}`)
-  } catch {
+  } catch (err) {
+    console.log(err)
     renderNewPage(res, book, true)
   }
 })
@@ -104,6 +106,7 @@ router.get('/:id', async (req, res) => {
     const book = await Book.findById(req.params.id).populate('author').exec()
     res.render('books/show', { book: book })
   } catch (err){
+    console.log(err)
     res.redirect('/')
   }
 })

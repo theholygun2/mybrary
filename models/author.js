@@ -8,6 +8,7 @@ const authorSchema = new mongoose.Schema({
   }
 })
 
+//check if a author is connected with a book
 authorSchema.pre('remove', function(next) {
   Book.find({ author: this.id }, (err, books) => {
     if (err) {

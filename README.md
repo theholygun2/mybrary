@@ -1,1 +1,1 @@
-mybrary-stefan.heroku.app
+https://mybrary-stefan.herokuapp.com/

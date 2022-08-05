@@ -20,7 +20,6 @@ router.get('/', async (req,res) => {
 
   try{
     const books = await query.exec()
-
     res.render('books/index', {
       books: books,
       searchOptions: req.query
